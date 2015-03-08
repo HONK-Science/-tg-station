@@ -15,13 +15,13 @@
 	config_tag = "revolution"
 	antag_flag = BE_REV
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer")
-	required_players = 20
+	required_players = 10
 	required_enemies = 1
-	recommended_enemies = 3
+	recommended_enemies = 2
 
 	var/finished = 0
 	var/check_counter = 0
-	var/max_headrevs = 3
+	var/max_headrevs = 2
 	var/list/datum/mind/heads_to_kill = list()
 
 ///////////////////////////
@@ -37,17 +37,23 @@
 ///////////////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
-		restricted_jobs += protected_jobs
-
-	if(config.protect_assistant_from_antagonist)
-		restricted_jobs += "Assistant"
+	//adjust the number of headrevs based on player count
+	if(num_players() >= 20) 
+		recommended_enemies = 3
+		max_headrevs = 3
 
 	var/head_check = 0
 	for(var/mob/new_player/player in player_list)
 		if(player.mind.assigned_role in command_positions)
 			head_check = 1
 			break
+
+
+	if(config.protect_roles_from_antagonist)
+		restricted_jobs += protected_jobs
+
+	if(config.protect_assistant_from_antagonist)
+		restricted_jobs += "Assistant"
 
 	for(var/datum/mind/player in antag_candidates)
 		for(var/job in restricted_jobs)//Removing heads and such from the list

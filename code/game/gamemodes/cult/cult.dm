@@ -26,10 +26,9 @@
 	antag_flag = BE_CULTIST
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
 	protected_jobs = list()
-	required_players = 20
-	required_enemies = 6
-	recommended_enemies = 6
-
+	required_players = 10
+	required_enemies = 2 
+	recommended_enemies = 4
 
 	var/finished = 0
 
@@ -38,7 +37,7 @@
 
 	var/eldergod = 1 //for the summon god objective
 
-	var/acolytes_needed = 10 //for the survive objective
+	var/acolytes_needed = 7 //for the survive objective
 	var/acolytes_survived = 0
 
 
@@ -55,7 +54,17 @@
 		cult_objectives += "eldergod"
 		cult_objectives += "sacrifice"
 
+	//adjust game mode for player numbers
+	if(num_players() < 20)
+		set_runecults(setELDERGOD_CULTS=6, setCONVERT_CULTS=2, setSACRIFICE_CULTS=2)
+		
+	if(num_players() >= 20)
+		required_enemies = 4
+		recommended_enemies = 6
+		acolytes_needed = 10
+
 	if(num_players() >= 30)
+		required_enemies = 6
 		recommended_enemies = 9	// 3+3+3 - d' magic number o' magic numbars mon
 		acolytes_needed = 15
 
@@ -122,7 +131,7 @@
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
+				explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if [ELDERGOD_CULTS] cultists stand on and around it."
 		cult_mind.current << "<B>Objective #[obj_count]</B>: [explanation]"
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 	cult_mind.current << "The Geometer of Blood grants you the knowledge to sacrifice non-believers. (Hell Blood Join)"

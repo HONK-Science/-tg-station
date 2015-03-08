@@ -1,4 +1,32 @@
 var/list/sacrificed = list()
+// Sets number of cultists required for various runes, default values below are for 20+ player rounds
+var/CONVERT_CULTS = 3
+var/ELDERGOD_CULTS = 9
+var/SACRIFICE_CULTS = 3
+var/ITEMPORT_CULTS = 1
+var/FREEDOM_CULTS = 1
+var/CULTSUMMON_CULTS = 3
+var/BLOODBOIL_CULTS = 3
+var/BURNINGBLOOD_CULTS = 5
+
+proc/set_runecults( setELDERGOD_CULTS = null, setCONVERT_CULTS = null, setSACRIFICE_CULTS = null, setITEMPORT_CULTS = null, setFREEDOM_CULTS = null, setCULTSUMMON_CULTS = null, setBLOODBOIL_CULTS = null, setBURNINGBLOOD_CULTS = null ) //Convenience Method for setting number of cultists required for runes, automatically updates tome
+	if(setELDERGOD_CULTS)
+		ELDERGOD_CULTS = setELDERGOD_CULTS
+	if(setCONVERT_CULTS)
+		CONVERT_CULTS = setCONVERT_CULTS
+	if(setSACRIFICE_CULTS)
+		SACRIFICE_CULTS = setSACRIFICE_CULTS
+	if(setITEMPORT_CULTS)
+		ITEMPORT_CULTS = setITEMPORT_CULTS
+	if(setFREEDOM_CULTS)
+		FREEDOM_CULTS = setFREEDOM_CULTS 
+	if(setCULTSUMMON_CULTS)
+		CULTSUMMON_CULTS = setCULTSUMMON_CULTS
+	if(setBLOODBOIL_CULTS)
+		BLOODBOIL_CULTS = setBLOODBOIL_CULTS
+	if(setBURNINGBLOOD_CULTS)
+		BURNINGBLOOD_CULTS = setBURNINGBLOOD_CULTS
+	update_tome()
 
 /obj/effect/rune
 /////////////////////////////////////////FIRST RUNE
@@ -62,7 +90,7 @@ var/list/sacrificed = list()
 			culcount++
 	if(user.loc==src.loc)
 		return fizzle(user)
-	if(culcount>=1)
+	if(culcount>=ITEMPORT_CULTS)
 		user.say("Sas[pick("'","`")]so c'arta forbici tarem!")
 		user.visible_message("<span class='danger'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
 		"<span class='danger'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
@@ -108,7 +136,7 @@ var/list/sacrificed = list()
 			if(iscultist(C) && !C.stat)		//converting requires three cultists
 				cultsinrange += C
 				C.say("Mah[pick("'","`")]weyh pleggh at e'ntrath!")
-		if(cultsinrange.len >= 3)
+		if(cultsinrange.len >= CONVERT_CULTS)
 			M.visible_message("<span class='danger'>[M] writhes in pain as the markings below him glow a bloody red.</span>", \
 			"<span class='danger'>AAAAAAHHHH!</span>", \
 			"<span class='danger'>You hear an anguished scream.</span>")
@@ -157,7 +185,7 @@ var/list/sacrificed = list()
 	for(var/mob/M in range(1,src))
 		if(iscultist(M) && !M.stat)
 			cultist_count += M
-	if(cultist_count.len >= 9)
+	if(cultist_count.len >= ELDERGOD_CULTS)
 		if(ticker.mode.name == "cult")
 			var/datum/game_mode/cult/cultmode = ticker.mode
 			if(!("eldergod" in cultmode.cult_objectives))
@@ -610,11 +638,11 @@ var/list/sacrificed = list()
 		if(iscultist(C) && !C.stat)
 			cultsinrange += C
 			C.say("Barhah hra zar[pick("'","`")]garis!")
-			if(cultsinrange.len >= 3) break		//we only need to check for three alive cultists, loop breaks so their aren't extra cultists getting word rewards
+			if(cultsinrange.len >= SACRIFICE_CULTS) break		//we only need to check for three alive cultists, loop breaks so their aren't extra cultists getting word rewards
 	for(var/mob/H in victims)
 		if (ticker.mode.name == "cult")
 			if(H.mind == ticker.mode:sacrifice_target)
-				if(cultsinrange.len >= 3)
+				if(cultsinrange.len >= SACRIFICE_CULTS)
 					sacrificed += H.mind
 					stone_or_gib(H)
 					for(var/mob/living/carbon/C in cultsinrange)
@@ -626,7 +654,7 @@ var/list/sacrificed = list()
 				else
 					usr << "<span class='danger'>Your target's earthly bonds are too strong. You need more cultists to succeed in this ritual.</span>"
 			else
-				if(cultsinrange.len >= 3)
+				if(cultsinrange.len >= SACRIFICE_CULTS)
 					if(H.stat !=2)
 						for(var/mob/living/carbon/C in cultsinrange)
 							C << "<span class='danger'>The Geometer of Blood accepts this sacrifice.</span>"
@@ -652,7 +680,7 @@ var/list/sacrificed = list()
 							usr << "<span class='danger'>However, a mere dead body is not enough to satisfy Him.</span>"
 						stone_or_gib(H)
 		else
-			if(cultsinrange.len >= 3)
+			if(cultsinrange.len >= SACRIFICE_CULTS)
 				if(H.stat !=2)
 					for(var/mob/living/carbon/C in cultsinrange)
 						C << "<span class='danger'>The Geometer of Blood accepts this sacrifice.</span>"
@@ -680,7 +708,7 @@ var/list/sacrificed = list()
 	for(var/mob/living/carbon/monkey/M in src.loc)
 		if (ticker.mode.name == "cult")
 			if(M.mind == ticker.mode:sacrifice_target)
-				if(cultsinrange.len >= 3)
+				if(cultsinrange.len >= SACRIFICE_CULTS)
 					sacrificed += M.mind
 					for(var/mob/living/carbon/C in cultsinrange)
 						C << "<span class='danger'>The Geometer of Blood accepts this sacrifice, your objective is now complete.</span>"
@@ -808,7 +836,7 @@ var/list/sacrificed = list()
 	for(var/mob/living/C in orange(1,src))
 		if(iscultist(C) && !C.stat)
 			users+=C
-	if(users.len>=1)
+	if(users.len>=FREEDOM_CULTS)
 		var/mob/living/carbon/cultist = input("Choose the one who you want to free", "Followers of Geometer") as null|anything in (cultists - users)
 		if(!cultist)
 			return fizzle(user)
@@ -858,7 +886,7 @@ var/list/sacrificed = list()
 	for(var/mob/living/C in orange(1,src))
 		if(iscultist(C) && !C.stat)
 			users+=C
-	if(users.len>=3)
+	if(users.len>=CULTSUMMON_CULTS)
 		var/mob/living/carbon/cultist = input("Choose the one who you want to summon", "Followers of Geometer") as null|anything in (cultists - user)
 		if(!cultist)
 			return fizzle(user)
@@ -976,7 +1004,7 @@ var/list/sacrificed = list()
 	for(var/mob/living/carbon/C in orange(1,src))
 		if(iscultist(C) && !C.stat)
 			culcount++
-	if(culcount>=3)
+	if(culcount>=BLOODBOIL_CULTS)
 		for(var/mob/living/carbon/M in viewers(usr))
 			if(iscultist(M))
 				continue
@@ -1007,7 +1035,7 @@ var/list/sacrificed = list()
 	for(var/mob/living/carbon/C in orange(1,src))
 		if(iscultist(C) && !C.stat)
 			culcount++
-	if(culcount >= 5)
+	if(culcount >= BURNINGBLOOD_CULTS)
 		for(var/obj/effect/rune/R in world)
 			if(R.blood_DNA == src.blood_DNA)
 				for(var/mob/living/M in orange(2,R))
