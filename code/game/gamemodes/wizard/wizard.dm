@@ -5,7 +5,7 @@
 	name = "wizard"
 	config_tag = "wizard"
 	antag_flag = BE_WIZARD
-	required_players = 20
+	required_players = 10
 	required_enemies = 1
 	recommended_enemies = 1
 	pre_setup_before_jobs = 1
@@ -156,10 +156,20 @@
 	if(wizard_mob.backbag == 3) wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(wizard_mob), slot_back)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(wizard_mob), slot_in_backpack)
 //	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/scrying_gem(wizard_mob), slot_l_store) For scrying gem.
-	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/teleportation_scroll(wizard_mob), slot_r_store)
+	//Teleportation Scroll Setup
+	var/obj/item/weapon/teleportation_scroll/telescroll = new /obj/item/weapon/teleportation_scroll(wizard_mob)
+	wizard_mob.equip_to_slot_or_del(telescroll, slot_r_store)
+	
+	//spell book setup
 	var/obj/item/weapon/spellbook/spellbook = new /obj/item/weapon/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
 	wizard_mob.equip_to_slot_or_del(spellbook, slot_r_hand)
+
+	//Adjust Equipment for lower player counts
+	if(num_players() < 20)
+		spellbook.uses = 3
+		spellbook.max_uses = 3
+		telescroll.uses = 2
 
 	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."
 	wizard_mob << "The spellbook is bound to you, and others cannot use it."
