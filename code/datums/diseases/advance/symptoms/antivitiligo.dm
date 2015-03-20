@@ -26,7 +26,7 @@ BONUS
 
 /datum/symptom/antivitiligo/Activate(var/datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
+	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -47,10 +47,10 @@ BONUS
 					var/random_name = ""
 					switch(H.gender)
 						if(MALE)
-							random_name = pick("Jamal")
+							random_name = pick("Jamal, Devon, Ooga")
 						else
-							random_name = pick("Shaniqua")
-					random_name += " [pick("Melons")]"
+							random_name = pick("Shaniqua, Jewel, Latifa")
+					random_name += " [pick("Melons, Jabongo")]"
 					H.SetSpecialVoice(random_name)
 				else
 					return
