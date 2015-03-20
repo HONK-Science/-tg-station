@@ -28,13 +28,13 @@ BONUS
 
 /datum/symptom/hothead/Activate(var/datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 10))
+	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/carbon/M = A.affected_mob
 		switch(A.stage)
-			if(2, 3, 4, 5)
-				if (M.bodytemperature < 400)
-					M.bodytemperature = min(400, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
+			if(3, 4, 5)
+				if (M.bodytemperature < 500)
+					M.bodytemperature = min(450, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
 			else
-				if(prob(SYMPTOM_ACTIVATION_PROB * 10))
+				if(prob(SYMPTOM_ACTIVATION_PROB * 2))
 					M<< "<span class='notice'>[pick("You feel an intense desire to shitpost on an anonymous imageboard. Also, you're fucking burning hot.")]</span>"
 	return

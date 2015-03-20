@@ -27,7 +27,7 @@ BONUS
 
 /datum/symptom/mlady/Activate(var/datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
+	if(prob(SYMPTOM_ACTIVATION_PROB * 1.5))
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
@@ -35,5 +35,5 @@ BONUS
 				M.visible_message("<span class='danger'>[M] shouts a vigorous M'lady</span>")
 			else
 				M << "<span notice='danger'>[pick("You begin to feel pain due to a lack of female attention")]</span>"
-				M.adjustBruteLoss(0.5)
+				M.adjustBruteLoss(0.6)
 	return
