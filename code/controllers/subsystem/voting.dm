@@ -251,7 +251,7 @@ var/datum/subsystem/vote/SSvote
 	set name = "Vote"
 	var/can_vote = 1
 	
-	if(isnum(client.player_age) && config.vote_age != null) //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
+	if(isnum(client.player_age) && config.vote_age != null) //player_age is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
 		if(client.player_age >= config.vote_age)
 			can_vote = 1
 		else
