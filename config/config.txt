@@ -80,6 +80,10 @@ VOTE_DELAY 6000
 ## time period (deciseconds) which voting session will last (default 1 minute)
 VOTE_PERIOD 600
 
+##Limits voting rights to players over a certain age, in days from the first time they logged into the server
+##Only works with a connected SQL database tracking the first time accounts are seen
+#VOTE_AGE 30
+
 ## prevents dead players from voting or starting votes
 # NO_DEAD_VOTE
 

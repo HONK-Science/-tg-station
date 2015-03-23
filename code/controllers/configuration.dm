@@ -31,6 +31,7 @@
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
 	var/vote_period = 600				// length of voting period (deciseconds, default 1 minute)
+	var/vote_age = null				//  sets the minimum account age needed to vote on the server in days since account first logged into the server, requires sql database
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 	var/del_new_on_log = 1				// del's new players if they log before they spawn in
@@ -255,6 +256,8 @@
 					config.vote_delay = text2num(value)
 				if("vote_period")
 					config.vote_period = text2num(value)
+				if("vote_age")
+					config.vote_age = text2num(value)
 				if("norespawn")
 					config.respawn = 0
 				if("servername")
