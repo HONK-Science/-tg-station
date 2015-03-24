@@ -88,6 +88,9 @@
 	if(message)
 		return message
 
+/datum/mutation/human/proc/get_spans()
+	return list()
+
 /datum/mutation/human/hulk
 
 	name = "Hulk"
@@ -179,6 +182,8 @@
 
 /datum/mutation/human/x_ray/on_losing(mob/living/carbon/human/owner)
 	if(..())	return
+	if((SEE_MOBS & owner.permanent_sight_flags) && (SEE_OBJS & owner.permanent_sight_flags) && (SEE_TURFS & owner.permanent_sight_flags)) //Xray flag combo
+		return
 	owner.see_in_dark = initial(owner.see_in_dark)
 	owner.sight = initial(owner.sight)
 
@@ -204,7 +209,7 @@
 
 /datum/mutation/human/epilepsy/on_life(mob/living/carbon/human/owner)
 	if ((prob(1) && owner.paralysis < 1))
-		owner.visible_message("<span class='userdanger'>[owner] starts having a seizure!</span>", "<span class='danger'>You have a seizure!</span>")
+		owner.visible_message("<span class='danger'>[owner] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
 		owner.Paralyse(10)
 		owner.Jitter(1000)
 

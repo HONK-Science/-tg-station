@@ -171,6 +171,8 @@
 			if(out.amount >= 1)
 				inp.amount -= out.amount
 				unload_mineral(out)
+			if(inp.amount < 1)
+				stack_list -= text2path(href_list["release"])
 		else
 			usr << "<span class='warning'>Required access not found.</span>"
 	if(href_list["plasteel"])
@@ -239,6 +241,7 @@
 		new /datum/data/mining_equipment("Alien Toy",           /obj/item/clothing/mask/facehugger/toy, 		                   300),
 		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/device/t_scanner/adv_mining_scanner,                     400),
 		new /datum/data/mining_equipment("Mining Drone",        /mob/living/simple_animal/hostile/mining_drone,                    500),
+		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
 		new /datum/data/mining_equipment("Kinetic Accelerator", /obj/item/weapon/gun/energy/kinetic_accelerator,               	   750),
 		new /datum/data/mining_equipment("Resonator",           /obj/item/weapon/resonator,                                    	   800),
 		new /datum/data/mining_equipment("Lazarus Injector",    /obj/item/weapon/lazarus_injector,                                1000),
