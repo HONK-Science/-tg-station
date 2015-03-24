@@ -128,10 +128,10 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	return
 
 /datum/reagent/krokodil/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
-	if(!istype(M.dna.species, /datum/species/cosmetic_zombie))
-		M << "<span class='userdanger'>Your skin falls off easily!</span>"
+	if(!istype(M.dna.species, /datum/species/skeleton))
+		M << "<span class='userdanger'>Your skin appears to be disintegrating... it's almost as though you are a.. a.. SPOOKY SCARY SKELETON!</span>"
 		M.adjustBruteLoss(rand(50,80)*REM) // holy shit your skin just FELL THE FUCK OFF
-		hardset_dna(M, null, null, null, null, /datum/species/cosmetic_zombie)
+		hardset_dna(M, null, null, null, null, /datum/species/skeleton)
 	else
 		M.adjustBruteLoss(5*REM)
 	..()
