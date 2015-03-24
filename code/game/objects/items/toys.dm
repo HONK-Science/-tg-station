@@ -669,7 +669,7 @@
  */
 /obj/item/toy/AI
 	name = "toy AI"
-	desc = "A little toy model AI core with real law announcing action!"
+	desc = "A little toy model AI core with real law announcing action! Some cuntfuck told me it was rogue."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
 	w_class = 2.0
