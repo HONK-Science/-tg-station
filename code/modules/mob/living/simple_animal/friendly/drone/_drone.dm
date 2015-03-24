@@ -181,3 +181,6 @@
 					L -= I
 		if(cleared)
 			src << "--- [class] alarm in [A.name] has been cleared."
+
+/mob/living/simple_animal/drone/check_eye_prot()
+	return 2
