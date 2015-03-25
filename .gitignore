@@ -8,3 +8,6 @@
 *.rsc
 *.lk
 *.int
+config/admins.txt
+config/dbconfig.txt
+tgstation.dme
