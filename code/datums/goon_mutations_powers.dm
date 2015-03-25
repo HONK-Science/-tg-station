@@ -1,7 +1,7 @@
 /datum/mutation/human/stealth
 	name = "Cloak Of Darkness"
 	quality = POSITIVE
-	get_chance = 10
+	get_chance = 33
 	lowest_value = 256 * 14
 	text_gain_indication = "<span class='notice'>You begin to fade into the shadows.</span>"
 	text_lose_indication = "<span class='notice'>You become fully visible.</span>"
@@ -23,7 +23,7 @@
 /datum/mutation/human/chameleon
 	name = "Chameleon"
 	quality = POSITIVE
-	get_chance = 10
+	get_chance = 33
 	lowest_value = 256 * 14
 	text_gain_indication = "<span class='notice'>You feel one with your surroundings.</span>"
 	text_lose_indication = "<span class='notice'>You feel oddly exposed.</span>"
