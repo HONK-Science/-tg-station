@@ -15,13 +15,13 @@
 	config_tag = "revolution"
 	antag_flag = BE_REV
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer")
-	required_players = 10
+	required_players = 20
 	required_enemies = 1
-	recommended_enemies = 2
+	recommended_enemies = 3
 
 	var/finished = 0
 	var/check_counter = 0
-	var/max_headrevs = 2
+	var/max_headrevs = 3
 	var/list/datum/mind/heads_to_kill = list()
 
 ///////////////////////////
@@ -36,11 +36,6 @@
 //Gets the round setup, cancelling if there's not enough players at the start//
 ///////////////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/pre_setup()
-
-	//adjust the number of headrevs based on player count
-	if(num_players() >= 20) 
-		recommended_enemies = 3
-		max_headrevs = 3
 
 	var/head_check = 0
 	for(var/mob/new_player/player in player_list)
