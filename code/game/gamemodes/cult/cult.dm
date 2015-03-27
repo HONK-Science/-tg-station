@@ -115,6 +115,7 @@
 //		grant_secondword(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		cult_mind.current << "<span class='notice'>You are a member of the cult!</span>"
+		cult_mind.current << "<span class='notice'>Read your tome to better understand your dark powers and what they require!</span>"
 		memorize_cult_objectives(cult_mind)
 	..()
 
@@ -127,7 +128,7 @@
 				explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
 			if("sacrifice")
 				if(sacrifice_target)
-					explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (Hell blood join) and three acolytes to do so."
+					explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (Hell blood join) and [SACRIFICE_CULTS] acolytes to do so."
 				else
 					explanation = "Free objective."
 			if("eldergod")
